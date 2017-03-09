@@ -3,16 +3,10 @@ pipeline {
     stages {
         stage('build and tests') {
             steps {
-                //node(label: 'build') {
-
-                    withMaven(maven: 'M3') {
-
-                        // Run the maven build
-                        sh 'ls -al'
-                        sh "mvn clean install"
-
-                    } // withMaven will discover the generated Maven artifacts, JUnit reports and FindBugs reports
-                //}
+                withMaven(maven: 'M3') {
+                    sh 'mvn clean install'
+                    stash(name: 'binaries', includes: 'target/\*.jar', useDefaultExcludes: true)
+                }
 
             }
         }
@@ -55,6 +49,7 @@ pipeline {
             steps {
                 node(label: 'build') {
                     sleep 5
+                    unstash 'binaries'
                 }
 
             }
@@ -69,6 +64,7 @@ pipeline {
                 node(label: 'build') {
                     sleep 5
                     echo 'Fini !!!'
+                    unstash 'binaries'
                 }
 
             }
