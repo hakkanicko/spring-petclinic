@@ -4,7 +4,7 @@ pipeline {
         stage('build and tests') {
             steps {
                 node(label: 'build') {
-                    sleep '5'
+                    sleep 5
                 }
 
             }
@@ -12,7 +12,7 @@ pipeline {
         stage('static-analysis') {
             steps {
                 node(label: 'build') {
-                    sleep '5'
+                    sleep 5
                 }
 
             }
@@ -22,21 +22,21 @@ pipeline {
                 parallel(
                         "edge": {
                             node(label: 'build') {
-                                sleep '5'
+                                sleep 5
                             }
 
 
                         },
                         "chrome": {
                             node(label: 'build') {
-                                sleep '5'
+                                sleep 5
                             }
 
 
                         },
                         "firefox": {
                             node(label: 'build') {
-                                sleep '5'
+                                sleep 5
                             }
 
 
@@ -47,7 +47,7 @@ pipeline {
         stage('staging') {
             steps {
                 node(label: 'build') {
-                    sleep '5'
+                    sleep 5
                 }
 
             }
@@ -60,7 +60,7 @@ pipeline {
         stage('deploy') {
             steps {
                 node(label: 'build') {
-                    sleep '5'
+                    sleep 5
                     echo 'Fini !!!'
                 }
 
