@@ -4,7 +4,15 @@ pipeline {
         stage('build and tests') {
             steps {
                 node(label: 'build') {
-                    sleep 5
+                    withMaven(
+                            maven: 'M3', // Maven installation declared in the Jenkins "Global Tool Configuration"
+                            mavenSettingsConfig: 'my-maven-settings', // Maven settings.xml file defined with the Jenkins Config File Provider Plugin
+                            mavenLocalRepo: '.repository') {
+
+                        // Run the maven build
+                        sh "mvn clean install"
+
+                    } // withMaven will discover the generated Maven artifacts, JUnit reports and FindBugs reports
                 }
 
             }
@@ -54,7 +62,7 @@ pipeline {
         }
         stage('manual-approval') {
             steps {
-                input 'Déploiement en Prod ?'
+                echo 'Déploiement en Prod ? Oui bien sur vas y'
             }
         }
         stage('deploy') {
