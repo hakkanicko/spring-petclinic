@@ -7,6 +7,7 @@ pipeline {
                     withMaven(maven: 'M3') {
 
                         // Run the maven build
+                        sh 'ls -al'
                         sh "mvn clean install"
 
                     } // withMaven will discover the generated Maven artifacts, JUnit reports and FindBugs reports
