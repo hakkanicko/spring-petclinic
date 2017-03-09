@@ -1,9 +1,10 @@
 pipeline {
-    agent none
+    agent any
     stages {
         stage('build and tests') {
             steps {
-                node(label: 'build') {
+                //node(label: 'build') {
+
                     withMaven(maven: 'M3') {
 
                         // Run the maven build
@@ -11,7 +12,7 @@ pipeline {
                         sh "mvn clean install"
 
                     } // withMaven will discover the generated Maven artifacts, JUnit reports and FindBugs reports
-                }
+                //}
 
             }
         }
