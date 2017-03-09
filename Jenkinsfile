@@ -4,7 +4,7 @@ pipeline {
         stage('build and tests') {
             steps {
                 withMaven(maven: 'M3') {
-                    sh 'mvn clean compile'
+                    sh 'mvn clean install'
                     stash(name: 'binaries', includes: 'target/\\*.jar', useDefaultExcludes: true)
                 }
 
