@@ -4,7 +4,7 @@ pipeline {
         stage('build and tests') {
             steps {
                 withMaven(maven: 'M3') {
-                    sh 'mvn clean install'
+                    sh 'mvn clean compile'
                     stash(name: 'binaries', includes: 'target/\\*.jar', useDefaultExcludes: true)
                 }
 
@@ -50,7 +50,7 @@ pipeline {
                 node(label: 'build') {
                     sleep 5
                     unstash 'binaries'
-                    sh 'ls -al'
+                    sh 'ls -al target'
                 }
 
             }
@@ -66,7 +66,7 @@ pipeline {
                     sleep 5
                     echo 'Fini !!!'
                     unstash 'binaries'
-                    sh 'ls -al'
+                    sh 'ls -al target'
                 }
 
             }
