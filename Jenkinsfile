@@ -50,6 +50,7 @@ pipeline {
                 node(label: 'build') {
                     sleep 5
                     unstash 'binaries'
+                    sh 'ls -al'
                 }
 
             }
@@ -65,6 +66,7 @@ pipeline {
                     sleep 5
                     echo 'Fini !!!'
                     unstash 'binaries'
+                    sh 'ls -al'
                 }
 
             }
